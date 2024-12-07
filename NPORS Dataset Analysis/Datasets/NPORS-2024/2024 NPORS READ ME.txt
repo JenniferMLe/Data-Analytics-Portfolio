@@ -1,0 +1,27 @@
+PEW RESEARCH CENTER
+2024 National Public Opinion Reference Survey (NPORS)
+Dates: Feb. 1 to Jun. 10, 2024
+Sample: National address-based sample from the U.S. Postal Service Computerized Delivery Sequence File
+Modes: Online, Paper, and Telephone
+Language: English and Spanish
+n=5,626
+
+***************************************************************************************************************************
+DATA USER NOTE
+
+The following questions are held for future release because Pew Research Center plans to report the results by early 2025.
+These questions are not included in this public dataset but will be available following the Center's reporting on them.
+
+- Do you currently subscribe to internet service installed at your home (other than data plans on mobile devices)?
+- Is the home internet service you subscribe to... (Dial-up, High-speed broadband, Other service, Not sure)
+- Please indicate whether or not you ever use the following websites or apps. (Facebook, YouTube, X (formerly Twitter), Instagram, Snapchat, WhatsApp, LinkedIn, Pinterest, TikTok, BeReal, Reddit)
+- How much, if anything, have you heard about ChatGPT, an artificial intelligence (AI) program used to create text?
+- Would you describe yourself as a born-again or evangelical Christian? 
+- Aside from weddings and funerals, how often do you attend religious services in person?
+- In general, how often do you watch or participate in religious services online or on TV? 
+- How important is religion in your life? 
+- Outside of attending religious services, how often do you pray? 
+
+Additionally, the version of the religious affiliation question (What is your present religion, if any?) with details on the full 12 categories asked about in the survey is held for future release. A version with the response options collapsed into four categories is available in the dataset.
+
+***************************************************************************************************************************
