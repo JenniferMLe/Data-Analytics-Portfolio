@@ -1,8 +1,27 @@
-Race,Count
-White,17995
-Black,2830
-Asian,1132
-American Indian or Alaska Native,584
-Native Hawaiian or other Pacific Islander,142
-Hispanic,3402
-Other,1130
+EDUCATION,Count
+"1 or more years of college credit, no degree",591
+12th Grade – NO DIPLOMA,78
+"Associate degree (such as AA, AS)",602
+"Associate's degree (such as AA, AS)",433
+Associate’s degree,410
+"Associate’s degree (for example: AA, AS)",428
+"Associate’s degree (such as AA, AS)",619
+"Bachelor's degree (such as BA, BS)",2403
+Bachelor’s degree,989
+"Bachelor’s degree (for example: BA, BS)",1069
+"Bachelor’s degree (such as BA, BS)",1427
+"Doctorate degree (for example: PhD, EdD)",94
+GED or alternative credential,131
+Grade 1 through 11,105
+Kindergarten,4
+Kindergarten through grade 11,435
+Kindergarten through grade 12,121
+Master's degree or higher,1958
+"Master’s degree (for example: MA, MS, MEng, MEd, MSW, MBA)",566
+Master’s degree or higher,1807
+No schooling completed,342
+"Professional degree beyond a bachelor’s degree (for example: MD, DDS, DVM, LLB, JD)",107
+Regular high school diploma,560
+Regular high school diploma or GED,3628
+Some college credit but no degree,4048
+"Some college credit, but less than 1 year of college credit",306
