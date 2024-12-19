@@ -1,9 +1,17 @@
-INCOME_GROUP,REDDIT,Count,Percent
-High Income,"No, don’t use this",1224,73.2934131736527
-High Income,"Yes, use this",446,26.706586826347305
-High Middle Income,"No, don’t use this",699,81.56359393232205
-High Middle Income,"Yes, use this",158,18.436406067677947
-Low Income,"No, don’t use this",1169,87.0439314966493
-Low Income,"Yes, use this",174,12.956068503350707
-Low Middle Income,"No, don’t use this",953,82.01376936316696
-Low Middle Income,"Yes, use this",209,17.98623063683305
+AGE_GROUP,RELIMP,Count,Percent
+30-50,Not at all important,1028,21.052631578947366
+30-50,Not too important,795,16.280974810567276
+30-50,Somewhat important,1214,24.861765308212163
+30-50,Very important,1846,37.804628302273194
+50-70,Not at all important,915,13.48563006632277
+50-70,Not too important,917,13.515106853352984
+50-70,Somewhat important,1677,24.716285924834196
+50-70,Very important,3276,48.28297715549005
+70+,Not at all important,452,12.186573200323538
+70+,Not too important,451,12.159611755190078
+70+,Somewhat important,785,21.164734429765435
+70+,Very important,2021,54.489080614720955
+Under 30,Not at all important,516,24.47817836812144
+Under 30,Not too important,386,18.311195445920305
+Under 30,Somewhat important,519,24.620493358633777
+Under 30,Very important,687,32.59013282732448
