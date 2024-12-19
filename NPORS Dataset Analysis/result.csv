@@ -1,9 +1,9 @@
-INCOME_GROUP,LINKEDIN,Count,Percent
-High Income,"No, don’t use this",2338,46.750649870025995
-High Income,"Yes, use this",2663,53.249350129974005
-High Middle Income,"No, don’t use this",1669,63.14793794930004
-High Middle Income,"Yes, use this",974,36.85206205069996
-Low Income,"No, don’t use this",3577,81.22161671207992
-Low Income,"Yes, use this",827,18.77838328792007
-Low Middle Income,"No, don’t use this",2205,72.60454395785314
-Low Middle Income,"Yes, use this",832,27.395456042146854
+INCOME_GROUP,REDDIT,Count,Percent
+High Income,"No, don’t use this",1224,73.2934131736527
+High Income,"Yes, use this",446,26.706586826347305
+High Middle Income,"No, don’t use this",699,81.56359393232205
+High Middle Income,"Yes, use this",158,18.436406067677947
+Low Income,"No, don’t use this",1169,87.0439314966493
+Low Income,"Yes, use this",174,12.956068503350707
+Low Middle Income,"No, don’t use this",953,82.01376936316696
+Low Middle Income,"Yes, use this",209,17.98623063683305
