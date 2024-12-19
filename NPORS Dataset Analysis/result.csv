@@ -1,27 +1,9 @@
-EDUCATION,Count
-"1 or more years of college credit, no degree",591
-12th Grade – NO DIPLOMA,78
-"Associate degree (such as AA, AS)",602
-"Associate's degree (such as AA, AS)",433
-Associate’s degree,410
-"Associate’s degree (for example: AA, AS)",428
-"Associate’s degree (such as AA, AS)",619
-"Bachelor's degree (such as BA, BS)",2403
-Bachelor’s degree,989
-"Bachelor’s degree (for example: BA, BS)",1069
-"Bachelor’s degree (such as BA, BS)",1427
-"Doctorate degree (for example: PhD, EdD)",94
-GED or alternative credential,131
-Grade 1 through 11,105
-Kindergarten,4
-Kindergarten through grade 11,435
-Kindergarten through grade 12,121
-Master's degree or higher,1958
-"Master’s degree (for example: MA, MS, MEng, MEd, MSW, MBA)",566
-Master’s degree or higher,1807
-No schooling completed,342
-"Professional degree beyond a bachelor’s degree (for example: MD, DDS, DVM, LLB, JD)",107
-Regular high school diploma,560
-Regular high school diploma or GED,3628
-Some college credit but no degree,4048
-"Some college credit, but less than 1 year of college credit",306
+INCOME_GROUP,LINKEDIN,Count,Percent
+High Income,"No, don’t use this",2338,46.750649870025995
+High Income,"Yes, use this",2663,53.249350129974005
+High Middle Income,"No, don’t use this",1669,63.14793794930004
+High Middle Income,"Yes, use this",974,36.85206205069996
+Low Income,"No, don’t use this",3577,81.22161671207992
+Low Income,"Yes, use this",827,18.77838328792007
+Low Middle Income,"No, don’t use this",2205,72.60454395785314
+Low Middle Income,"Yes, use this",832,27.395456042146854
