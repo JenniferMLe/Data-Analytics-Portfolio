@@ -1,17 +1,9 @@
-AGE_GROUP,RELIMP,Count,Percent
-30-50,Not at all important,1028,21.052631578947366
-30-50,Not too important,795,16.280974810567276
-30-50,Somewhat important,1214,24.861765308212163
-30-50,Very important,1846,37.804628302273194
-50-70,Not at all important,915,13.48563006632277
-50-70,Not too important,917,13.515106853352984
-50-70,Somewhat important,1677,24.716285924834196
-50-70,Very important,3276,48.28297715549005
-70+,Not at all important,452,12.157073695535233
-70+,Not too important,451,12.1301775147929
-70+,Somewhat important,790,21.247982786444325
-70+,Very important,2025,54.46476600322754
-Under 30,Not at all important,516,24.58313482610767
-Under 30,Not too important,386,18.38970938542163
-Under 30,Somewhat important,514,24.487851357789424
-Under 30,Very important,683,32.53930443068128
+INCOME_GROUP,LINKEDIN,Count,Percent
+$100K+,"No, don’t use this",2338,46.750649870025995
+$100K+,"Yes, use this",2663,53.249350129974005
+$40-70K,"No, don’t use this",2205,72.60454395785314
+$40-70K,"Yes, use this",832,27.395456042146854
+$70-100K,"No, don’t use this",1669,63.14793794930004
+$70-100K,"Yes, use this",974,36.85206205069996
+Under $40k,"No, don’t use this",3577,81.22161671207992
+Under $40k,"Yes, use this",827,18.77838328792007
