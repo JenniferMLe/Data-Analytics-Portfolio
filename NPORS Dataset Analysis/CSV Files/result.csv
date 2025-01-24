@@ -1,9 +1,2 @@
-INCOME_GROUP,LINKEDIN,Count,Percent
-$100K+,"No, don’t use this",2338,46.750649870025995
-$100K+,"Yes, use this",2663,53.249350129974005
-$40-70K,"No, don’t use this",2205,72.60454395785314
-$40-70K,"Yes, use this",832,27.395456042146854
-$70-100K,"No, don’t use this",1669,63.14793794930004
-$70-100K,"Yes, use this",974,36.85206205069996
-Under $40k,"No, don’t use this",3577,81.22161671207992
-Under $40k,"Yes, use this",827,18.77838328792007
+White,Black,Asian,American Indian or Alaska Native,Native Hawaiian or other Pacific Islander,Hispanic,Other
+17995,2830,1132,584,142,3402,1130
