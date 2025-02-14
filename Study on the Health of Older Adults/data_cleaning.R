@@ -67,6 +67,3 @@ df_pivot = pivot_wider(df_pivot, names_from = QuestionID, values_from = Value)
 result <- distinct(df, Gender_or_Race)
 result <- arrange(result, YearStart)
 
-
-
-

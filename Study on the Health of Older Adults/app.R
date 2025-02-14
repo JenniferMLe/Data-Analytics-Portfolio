@@ -57,9 +57,7 @@ dashboard3 <-
                     selected="Experiencing frequent mental distress"),
         selectInput("y_axis", "Question 2 (y-axis):", questions_sorted,
                     selected="Smoking every day or some days"),
-        verbatimTextOutput("cor"),
-        "Interestingly, having a physical or mental disability has a much weaker
-        correlation with frequent mental distress than smoking."
+        verbatimTextOutput("cor")
       ),
       mainPanel(
         plotlyOutput('scatterplot')
@@ -70,14 +68,22 @@ dashboard3 <-
 dashboard4 <-
   tabPanel(
     "Map",
-    fluidRow(
-      column(4, selectInput("QuestionMap", "Question", questions_sorted, 
-                            selected="Have a lifetime diagnosis of depression")),
-      column(4, selectInput("Color", "Color Theme", c("Blue", "Purple", "Green", "Orange"))),
-      column(1, checkboxInput("allYears", "All Years", value = TRUE)),
-      column(3, sliderInput("Year", "Year", 2015, 2022, 2015, step=1, sep=""))
-    ),
-    plotlyOutput('map')
+    sidebarLayout(
+      sidebarPanel(
+        selectInput("QuestionMap", "Question", questions_sorted, 
+                    selected="Have a lifetime diagnosis of depression"),
+        selectInput("Mode", "Calculate By", 
+          c('Percentage Average', 'Percentage Median','Percentage Max', 'Percentage Min')),
+        selectInput("GenderOrRace", "Filter by Gender or Race", 
+          c("All",unique(as.character(df$Gender_or_Race)))),
+        checkboxInput("allYears", "All Years", value = TRUE),
+        sliderInput("Year", "Year", 2015, 2022, 2015, step=1, sep=""),
+        selectInput("Color", "Color Theme", c("Blue", "Purple", "Green", "Orange"))
+      ),
+      mainPanel(
+        plotlyOutput('map')
+      )
+    )
   )
 
 # Define UI
@@ -168,53 +174,43 @@ server <- function(input, output, session) {
     df_res <- df_pivot %>% 
       filter(!is.na(get(qID1)) & !is.na(get(qID2)))
     
+    
+    
     # create scatter plot
-    plot_ly(
-      data = df_res,
-      x = ~get(qID1),
-      y = ~get(qID2),
-      type = "scatter",
-      mode = "markers",
-      marker = list(size = 7, color = 'black'),
-      text = ~paste(
-        "x: ", get(qID1), "<br>",
-        "y: ", get(qID2), "<br>",
-        Location, "<br>",
-        Gender_or_Race, "<br>",
-        Age_Group, "<br>", sep=""
-      ),
-      hoverinfo = "text"
-    ) %>%
-      layout(
-        xaxis = list(title = input$x_axis),
-        yaxis = list(title = input$y_axis),
-        height = 600
-      )
+    # plot_ly(
+    #   data = df_res,
+    #   x = ~get(qID1),
+    #   y = ~get(qID2),
+    #   type = "scatter",
+    #   mode = "markers",
+    #   marker = list(size = 7, color = 'black'),
+    #   text = ~paste(
+    #     "x: ", get(qID1), "<br>",
+    #     "y: ", get(qID2), "<br>",
+    #     Location, "<br>",
+    #     Gender_or_Race, "<br>",
+    #     Age_Group, "<br>", sep=""
+    #   ),
+    #   hoverinfo = "text"
+    # ) %>%
+    #   layout(
+    #     xaxis = list(title = input$x_axis),
+    #     yaxis = list(title = input$y_axis),
+    #     height = 600
+    #   )
     
     # ggplot graph code below
-    # plot <- ggplot(df_res, mapping=aes(
-    #     x=get(qID1), 
-    #     y=get(qID2),
-    #     text(paste(
-    #       "x: ", x, "<br>",
-    #       "y: ", y, "<br>",
-    #       Location, "<br>",
-    #       Gender_or_Race, "<br>",
-    #       Age_Group, "<br>", sep=""
-    #     ))
-    #   )) +
-    #   geom_point() + geom_smooth() +
-    #   labs(
-    #     x=input$x_axis,
-    #     y=input$y_axis
-    #   ) +
-    #   theme(
-    #     axis.title = element_text(size = 16),
-    #     axis.text = element_text(size = 13)
-    #   )
-    # 
-    # ggplotly(plot, tooltip = "text")
-    
+    plot <- ggplot(df_res, mapping=aes(
+        x=get(qID1),
+        y=get(qID2),
+        color=Gender_or_Race
+      )) +
+      geom_point() + geom_smooth() +
+      labs(
+        x=input$x_axis,
+        y=input$y_axis
+      )
+    ggplotly(plot, height = 600)
   })
   
   output$cor <- renderText({
@@ -248,23 +244,31 @@ server <- function(input, output, session) {
     # get question ID from choosen question
     qID <- get_qID(input$QuestionMap)
     
-    df_res <- NULL
+    # build result set 
+    df_res <- filter(df_pivot, !is.na(get(qID)))
     
-    # if user doesn't want to filter by year
-    if(input$allYears){
-      df_res <- df_pivot %>% 
-        filter(!is.na(get(qID))) %>% 
-        group_by(Location) %>% 
-        summarize(avg_percent = mean(get(qID))) %>% 
-        arrange(avg_percent) 
-    } 
-    # if user wants to filter by year
-    else {
-      df_res <- df_pivot %>% 
-        filter(!is.na(get(qID)) & YearStart == input$Year & YearEnd == input$Year) %>% 
-        group_by(Location) %>% 
-        summarize(avg_percent = mean(get(qID))) %>% 
-        arrange(avg_percent) 
+    # filter by year if "all years" is unchecked
+    if(!input$allYears){
+      df_res <- filter(df_res, YearStart == input$Year & YearEnd == input$Year)
+    }
+    
+    # filter by 
+    if(input$GenderOrRace != 'All'){
+      df_res <- filter(df_res, Gender_or_Race == input$GenderOrRace)
+    }
+    
+    # group by location
+    df_res <- group_by(df_res, Location)
+    
+    # summarize by user choice
+    if(input$Mode == "Percentage Average") {
+      df_res <- summarize(df_res, value = mean(get(qID)))
+    } else if(input$Mode == "Percentage Median") {
+      df_res <- summarize(df_res, value = median(get(qID)))
+    } else if(input$Mode == "Percentage Max") {
+      df_res <- summarize(df_res, value = max(get(qID)))
+    } else if(input$Mode == "Percentage Min") {
+      df_res <- summarize(df_res, value = min(get(qID)))
     }
     
     # create themes that will change depending on user input
@@ -287,13 +291,16 @@ server <- function(input, output, session) {
       data = df_res,
       locations = ~LocationAbbr,  
       locationmode = "USA-states",
-      z = ~avg_percent,  
+      z = ~value,  
       type = "choropleth",
       colorscale = list(
         c(0, 0.333, 0.666, 1), theme
-      )
+      ),
+      height = 600
     ) %>%
-      layout(geo = list(scope = "usa"))  
+      layout(
+        geo = list(scope = "usa")
+      )
     
     fig  
   })
