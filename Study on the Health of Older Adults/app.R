@@ -57,6 +57,8 @@ dashboard3 <-
                     selected="Experiencing frequent mental distress"),
         selectInput("y_axis", "Question 2 (y-axis):", questions_sorted,
                     selected="Smoking every day or some days"),
+        selectInput("GenderOrRace2", "Gender or Race", 
+                    c("All",unique(as.character(df$Gender_or_Race)))),
         verbatimTextOutput("cor")
       ),
       mainPanel(
@@ -174,42 +176,34 @@ server <- function(input, output, session) {
     df_res <- df_pivot %>% 
       filter(!is.na(get(qID1)) & !is.na(get(qID2)))
     
+    # filter by gender and race
+    if(input$GenderOrRace2 != "All"){
+      df_res <- filter(df_res, Gender_or_Race == input$GenderOrRace2)
+    }
     
+    color <- NULL
     
-    # create scatter plot
-    # plot_ly(
-    #   data = df_res,
-    #   x = ~get(qID1),
-    #   y = ~get(qID2),
-    #   type = "scatter",
-    #   mode = "markers",
-    #   marker = list(size = 7, color = 'black'),
-    #   text = ~paste(
-    #     "x: ", get(qID1), "<br>",
-    #     "y: ", get(qID2), "<br>",
-    #     Location, "<br>",
-    #     Gender_or_Race, "<br>",
-    #     Age_Group, "<br>", sep=""
-    #   ),
-    #   hoverinfo = "text"
-    # ) %>%
-    #   layout(
-    #     xaxis = list(title = input$x_axis),
-    #     yaxis = list(title = input$y_axis),
-    #     height = 600
-    #   )
+    # Assign colors to race
+    if(input$GenderOrRace2 == "All") {color = "black"}
+    else if(input$GenderOrRace2 == "Male") {color = "#0080ff"}
+    else if(input$GenderOrRace2 == "Female") {color = "#ff52f1"}
+    else if(input$GenderOrRace2 == "Overall") {color = "#006281"}
+    else if(input$GenderOrRace2 == "Black") {color = "#9f47ff"}
+    else if(input$GenderOrRace2 == "White") {color = "#ffc500"}
+    else if(input$GenderOrRace2 == "Hispanic") {color = "#81007f"}
+    else if(input$GenderOrRace2 == "Native Am/Alaskan Native") {color = "#ff5050"}
+    else if(input$GenderOrRace2 == "Asian/Pacific Islander") {color = "#24a866"}
     
     # ggplot graph code below
     plot <- ggplot(df_res, mapping=aes(
         x=get(qID1),
-        y=get(qID2),
-        color=Gender_or_Race
+        y=get(qID2)
       )) +
-      geom_point() + geom_smooth() +
+      geom_point(color = color) + geom_smooth() +
       labs(
         x=input$x_axis,
         y=input$y_axis
-      )
+      ) 
     ggplotly(plot, height = 600)
   })
   
@@ -218,8 +212,17 @@ server <- function(input, output, session) {
     qID1 <- get_qID(input$x_axis)
     qID2 <- get_qID(input$y_axis)
     
-    # use = "complete.obs" removes rows with null values before computing the value
-    ce <- cor(df_pivot[[qID1]], df_pivot[[qID2]], use = "complete.obs")
+    # create result set that filters out null values
+    df_res <- df_pivot %>% 
+      filter(!is.na(get(qID1)) & !is.na(get(qID2)))
+    
+    # filter by gender and race
+    if(input$GenderOrRace2 != "All"){
+      df_res <- filter(df_res, Gender_or_Race == input$GenderOrRace2)
+    }
+    
+    # calculate correlation coefficient 
+    ce <- cor(df_res[[qID1]], df_res[[qID2]])
     ce <- round(ce, digits = 3)
     
     strength <- ""
