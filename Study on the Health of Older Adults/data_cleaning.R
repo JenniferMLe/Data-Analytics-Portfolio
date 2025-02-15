@@ -44,7 +44,7 @@ df <- df %>%
     Data_Value_Alt = NULL
   ) %>% 
   rename(
-    Value = Data_Value,
+    Percentage = Data_Value,
     Age_Group = Stratification1,
     Gender_or_Race = Stratification2,
     Question = Question.y,
@@ -59,9 +59,9 @@ df$Gender_or_Race[df$Gender_or_Race == 'White, non-Hispanic'] <-'White'
 
 # pivot table so each question gets its own column
 df_pivot = select(df, 'YearStart','YearEnd','Location',
-                  'Age_Group', 'Gender_or_Race','QuestionID','Value')
+                  'Age_Group', 'Gender_or_Race','QuestionID','Percentage')
 
-df_pivot = pivot_wider(df_pivot, names_from = QuestionID, values_from = Value)
+df_pivot = pivot_wider(df_pivot, names_from = QuestionID, values_from = Percentage)
 
 # create plots to test here
 result <- distinct(df, Gender_or_Race)

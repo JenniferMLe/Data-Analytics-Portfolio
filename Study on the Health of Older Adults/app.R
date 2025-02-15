@@ -1,15 +1,17 @@
 # Author: Jennifer Le
 # Date: 2/3/25
 # Modified from 
-  # https://github.com/rstudio/shiny-examples/tree/main/030-basic-datatable 
+# https://github.com/rstudio/shiny-examples/tree/main/030-basic-datatable 
 
 # Load R packages
 library(shiny)
 library(shinythemes)
 library(ggplot2)
 
+# a list of all questions sorted alphabetically 
 questions_sorted <- sort(c(unique(as.character(df$Question))))
 
+# gets question number or id from a question
 get_qID <- function(input){
   question_id <- questions_fct_tbl %>% 
     filter(Question.y == input) %>% pull(QuestionID)
@@ -22,10 +24,11 @@ dashboard1 <-
     sidebarLayout(
       sidebarPanel(
         selectInput("Topic", "Topic:", c("All",unique(as.character(df$Class)))),
-        selectInput("Question", "Question:", c("All",unique(as.character(df$Question)))),
+        selectInput("Question", "Question:", c("All", sort(unique(as.character(df$Question))))),
         selectInput("Location", "Location:", c("All",unique(as.character(df$Location)))),
         selectInput("Age Group", "Age Group:", c("All",unique(as.character(df$Age_Group)))),
-        selectInput("Gender or Race", "Gender or Race:", c("All",unique(as.character(df$Gender_or_Race))))
+        selectInput("Gender or Race", "Gender or Race:", c("All",unique(as.character(df$Gender_or_Race)))),
+        textOutput("dataset")
       ),
       mainPanel(
         DT::dataTableOutput("table")
@@ -75,9 +78,9 @@ dashboard4 <-
         selectInput("QuestionMap", "Question", questions_sorted, 
                     selected="Have a lifetime diagnosis of depression"),
         selectInput("Mode", "Calculate By", 
-          c('Percentage Average', 'Percentage Median','Percentage Max', 'Percentage Min')),
+                    c('Percentage Average', 'Percentage Median','Percentage Max', 'Percentage Min')),
         selectInput("GenderOrRace", "Filter by Gender or Race", 
-          c("All",unique(as.character(df$Gender_or_Race)))),
+                    c("All",unique(as.character(df$Gender_or_Race)))),
         checkboxInput("allYears", "All Years", value = TRUE),
         sliderInput("Year", "Year", 2015, 2022, 2015, step=1, sep=""),
         selectInput("Color", "Color Theme", c("Blue", "Purple", "Green", "Orange"))
@@ -88,11 +91,10 @@ dashboard4 <-
     )
   )
 
-# Define UI
 ui <- fluidPage(
   theme = shinytheme("cerulean"),
   navbarPage(
-    "Analysis of Older Adult's Health",
+    "Study of the Health of Older Adults",
     dashboard1,
     dashboard2,
     dashboard3,
@@ -100,11 +102,16 @@ ui <- fluidPage(
   ) 
 ) 
 
-# Define server function  
 server <- function(input, output, session) {
+  
+  output$dataset <- renderText({
+    "This dataset is from a study on the health of adults 50 years or older in 
+        the United States and its territories. Data is collected from 2015 to 2022."
+  })
+  
   output$table <- DT::renderDataTable(DT::datatable({
-    data <- select(df, Class, Question, Value,
-                   Location, Age_Group, Gender_or_Race)
+    data <- select(df, Class, Question, Location,
+                   Gender_or_Race, Age_Group, Percentage)
     
     if (input$Topic != "All") {
       data <- data[data$Class == input$Topic,]
@@ -119,7 +126,7 @@ server <- function(input, output, session) {
       data <- data[data$Age_Group == input$'Age Group',]
     }
     if (input$'Gender or Race' != "All") {
-       data <- data[data$Gender_or_Race == input$'Gender or Race',]
+      data <- data[data$Gender_or_Race == input$'Gender or Race',]
     }
     data
   }))
@@ -142,11 +149,11 @@ server <- function(input, output, session) {
     # create plot 
     plot <- 
       ggplot(df_res, mapping = 
-          aes(
-            y=reorder(!!col_name, avg_percent), 
-            x=avg_percent,
-            fill = avg_percent
-          ), color=avg_percent) + 
+               aes(
+                 y=reorder(!!col_name, avg_percent), 
+                 x=avg_percent,
+                 fill = avg_percent
+               ), color=avg_percent) + 
       geom_col() +
       scale_fill_gradient(high = '#b20087', low = '#ffcd61') +
       labs(
@@ -196,9 +203,9 @@ server <- function(input, output, session) {
     
     # ggplot graph code below
     plot <- ggplot(df_res, mapping=aes(
-        x=get(qID1),
-        y=get(qID2)
-      )) +
+      x=get(qID1),
+      y=get(qID2)
+    )) +
       geom_point(color = color) + geom_smooth() +
       labs(
         x=input$x_axis,
