@@ -1,4 +1,11 @@
-df<- read.csv("../../Healthy_Aging_Data.csv")
+# Load R packages
+library(tidyverse)
+library(shiny)
+library(shinythemes)
+library(plotly)
+library(maps)
+
+df<- read.csv(unz("Healthy_Aging_Data.csv.zip","Healthy_Aging_Data.csv"))
 
 # remove rows with no data
 df <- filter(df, !is.na(Data_Value) | !is.na(Data_Value_Alt))
@@ -64,6 +71,6 @@ df_pivot = select(df, 'YearStart','YearEnd','Location',
 df_pivot = pivot_wider(df_pivot, names_from = QuestionID, values_from = Percentage)
 
 # create plots to test here
-result <- distinct(df, Gender_or_Race)
-result <- arrange(result, YearStart)
+# result <- distinct(df, Gender_or_Race)
+# result <- arrange(result, YearStart)
 

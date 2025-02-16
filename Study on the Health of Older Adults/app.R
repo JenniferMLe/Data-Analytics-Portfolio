@@ -3,10 +3,7 @@
 # Modified from 
 # https://github.com/rstudio/shiny-examples/tree/main/030-basic-datatable 
 
-# Load R packages
-library(shiny)
-library(shinythemes)
-library(ggplot2)
+source("data_cleaning.R")
 
 # a list of all questions sorted alphabetically 
 questions_sorted <- sort(c(unique(as.character(df$Question))))
@@ -314,8 +311,7 @@ server <- function(input, output, session) {
     
     fig  
   })
-} # server
-
+} 
 
 # Create Shiny object
 shinyApp(ui,server)
