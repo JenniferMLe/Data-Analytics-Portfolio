@@ -1,0 +1,5 @@
+tidyverse
+shiny
+shinythemes
+plotly
+maps
